@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Test_BTG.Views"
+             xmlns:models="clr-namespace:Test_BTG.Model"
+             xmlns:viewModels="clr-namespace:Test_BTG.ViewModel"
+             x:Class="Test_BTG.Views.CadastrarClientes"
+             Title="Cadastrar Clientes">
+
+    <ContentPage.BindingContext>
+        <viewModels:ViewModelCliente />
+    </ContentPage.BindingContext>
+    <ScrollView>
+        
+
+    <StackLayout Padding="20">
+
+        <Image Source="logo_btg.png" HeightRequest="100" HorizontalOptions="Center" Margin="0,30,0,30" />
+        
+        <Frame Padding="0" Margin="0" CornerRadius="5" BackgroundColor="White">
+            <Label FontAttributes="Bold" FontFamily="Courier" Text="CADASTRAR CLIENTES" FontSize="20" TextColor="Black" HorizontalOptions="Center" />
+        </Frame>
+
+        <Entry x:Name="NameEntry" Placeholder="Nome" Text="{Binding Nome}" />
+        <Entry x:Name="LastnameEntry" Placeholder="Sobrenome" Text="{Binding Sobrenome}" />
+        <Entry x:Name="AgeEntry" Placeholder="Idade" Keyboard="Numeric" Text="{Binding Idade}" />
+        <Entry x:Name="AddressEntry" Placeholder="Endereço" Text="{Binding Endereco}" />
+
+        <Button Text="Salvar" Command="{Binding SaveCommand}" />
+
+        <Label Text="Clientes Cadastrados:" FontSize="18" HorizontalOptions="Center" Padding="10" />
+
+        <!-- Cabeçalho da lista de clientes cadastrados -->
+        <CollectionView ItemsSource="{Binding Clientes}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10" Margin="5" BackgroundColor="LightGray" CornerRadius="5">
+                        <StackLayout>
+                            <Label Text="{Binding Name}" FontSize="16" />
+                            <Label Text="{Binding Lastname}" FontSize="14" />
+                            <Label Text="{Binding Age}" FontSize="14" />
+                            <Label Text="{Binding Address}" FontSize="14" />
+                            <StackLayout Orientation="Horizontal">
+                                <Button Text="Editar" Command="{Binding Source={RelativeSource AncestorType={x:Type views:CadastrarClientes}}, Path=BindingContext.EditarCommand}" CommandParameter="{Binding .}" />
+                                <Button Text="Excluir" Command="{Binding Source={RelativeSource AncestorType={x:Type views:CadastrarClientes}}, Path=BindingContext.ExcluirCommand}" CommandParameter="{Binding .}" />
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+    </ScrollView>
+</ContentPage>
